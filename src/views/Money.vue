@@ -1,9 +1,10 @@
 <template>
-    <div class="nav-wrapper">
-        <div class="content">
-            this is money
-        </div>
-        <Nav/>
+    <div>
+        <!--Layout是一个插槽-->
+        <Layout>
+            <!--把要传入插槽的内容放在这个地方，另一端使用slot进行接收-->
+            <p>this is money,sloted by slot</p>
+        </Layout>
     </div>
 </template>
 
@@ -14,16 +15,4 @@
 </script>
 
 <style scoped lang="scss">
-.nav-wrapper{
-    border: 1px solid red;
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-
-    .content{
-        border: 1px solid blue;
-        flex-grow: 1;
-        overflow: auto;
-    }
-}
 </style>
