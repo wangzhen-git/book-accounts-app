@@ -30,7 +30,6 @@
             width: 33.3333%;
             display: flex;
             justify-content: center;
-            border: 1px solid red;
             align-content: center;
             flex-direction: column;
             align-items: center;
