@@ -1,16 +1,16 @@
 <template>
    <nav class="nav">
-       <router-link to="/money" class="item">
+       <router-link to="/money" class="item" active-class="active">
            <Icon name="money"/>
-           money
+           <span>money</span>
        </router-link>
-       <router-link to="/labels" class="item">
+       <router-link to="/labels" class="item" active-class="active">
            <Icon name="labels"/>
-           labels
+           <span>labels</span>
        </router-link>
-       <router-link to="/statistics" class="item">
+       <router-link to="/statistics" class="item" active-class="active">
            <Icon name="statistics"/>
-           statistics
+           <span>statistics</span>
        </router-link>
    </nav>
 </template>
@@ -33,8 +33,20 @@
             border: 1px solid red;
             align-content: center;
             flex-direction: column;
-            text-align: center;
+            align-items: center;
 
+            .icon{
+                width: 24px;
+                height: 24px;
+                text-align: center;
+                justify-content: center;
+            }
+
+        }
+        .active{
+            .icon{
+                color: #fad549;
+            }
         }
 
     }
