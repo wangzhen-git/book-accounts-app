@@ -2,7 +2,7 @@
     <div class="calculator">
         <label>
             <span><Icon name="remark"/>备注:</span>
-            <input type="text" class="input" placeholder="点击填写备注...">
+            <input type="text" class="input" placeholder="点击填写备注..." v-model="remarkText">
             <!--这里学到了，给它一个默认值-->
             <span class="number">{{sum}}</span>
         </label>
@@ -35,6 +35,7 @@
 
     export default class Calcul extends Vue {
         sum = "0";
+        remarkText = '';
 
         // methods
         //指定时间名称为鼠标时间
