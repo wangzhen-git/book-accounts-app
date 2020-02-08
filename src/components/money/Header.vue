@@ -41,25 +41,6 @@
 
     }
 
-
-    // export default {
-    //     name: "Header",
-    //     data(){
-    //         return{
-    //             type:'income'
-    //         }
-    //     },
-    //     methods:{
-    //         changeType(type){
-    //             if(type!== 'income' && type!== 'outcome'){
-    //                 throw  new  Error('type is not right')
-    //             }
-    //
-    //             this.type = type
-    //         }
-    //     }
-    //
-    // };
 </script>
 
 <style scoped lang="scss">
