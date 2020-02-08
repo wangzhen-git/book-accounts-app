@@ -4,7 +4,7 @@
         <Layout>
             <!--因为，你这里要传入的是一个number，所以这个我在propA前面加了引号-->
             <Header/>
-            <Tags :tags-content="tags"/>
+            <Tags :tags-content.sync="tags"/>
             <Calcul/>
 
 

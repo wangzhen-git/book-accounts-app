@@ -7,7 +7,7 @@
             </li>
         </ul>
         <div class="new">
-            <button>新增标签</button>
+            <button @click="create">新增标签</button>
         </div>
     </div>
 </template>
@@ -19,7 +19,8 @@
     @Component
     export default class Tags extends Vue {
         name: "Tags";
-        @Prop() tagsContent: string[] | undefined;
+        // readonly 防止内部组件篡改外部组件数据
+        @Prop() readonly  tagsContent: string[] | undefined;
         selectedTag: string[] = [];
 
         toggle(tag: string) {
@@ -28,6 +29,19 @@
                 this.selectedTag.splice(index, 1);
             } else {
                 this.selectedTag.push(tag);
+            }
+        }
+
+        create(){
+            const name = window.prompt('请输入标签名称：')
+            console.log(this.tagsContent);
+            if(name === ''){
+                alert('标签名称不能为空')
+            }else{
+                if(this.tagsContent){
+                    //触发一个事件来改tagsContent数组
+                    this.$emit('update:tagsContent',[...this.tagsContent,name])
+                }
             }
         }
 
