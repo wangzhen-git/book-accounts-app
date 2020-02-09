@@ -21,6 +21,7 @@
         name: "Tags";
         // readonly 防止内部组件篡改外部组件数据
         @Prop() readonly  tagsContent: string[] | undefined;
+
         selectedTag: string[] = [];
 
         toggle(tag: string) {
@@ -30,6 +31,9 @@
             } else {
                 this.selectedTag.push(tag);
             }
+
+            //这里是把选中的标签传递到父组件
+            this.$emit('update:value',this.selectedTag)
         }
 
         create(){

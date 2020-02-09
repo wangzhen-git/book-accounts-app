@@ -22,20 +22,30 @@
             <button @click="onCalcul">.</button>
             <button @click="onCalcul">0</button>
             <button @click="onRemove">删除</button>
-            <button>完成</button>
+            <button @click="onComplete">完成</button>
         </div>
     </div>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component, Prop} from "vue-property-decorator";
+    import {Component, Prop, Watch} from "vue-property-decorator";
 
     @Component
 
     export default class Calcul extends Vue {
-        sum = "0";
-        remarkText = '';
+        remarkText = "";
+        sum = this.sumValue.toString()
+
+        @Prop(Number) sumValue:number;
+
+        //这是教你如何在TS中使用watch把这里的remark数据传递到父组件
+        @Watch("remarkText")
+        onRemarkChange(value:string) {
+            this.$emit('update:value',value)
+
+        }
+
 
         // methods
         //指定时间名称为鼠标时间
@@ -67,13 +77,17 @@
 
         }
 
+        //计算器上的删除按钮
         onRemove() {
             if (this.sum.length === 1) {
                 this.sum = "0";
             } else {
                 this.sum = this.sum.slice(0, -1);
             }
+        }
 
+        onComplete(){
+            this.$emit('update:sumValue',parseFloat(this.sum))
         }
 
 

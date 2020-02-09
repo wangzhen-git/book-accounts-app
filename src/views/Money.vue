@@ -1,11 +1,15 @@
 <template>
     <div>
+        {{record}}
         <!--Layout是一个插槽-->
         <Layout>
             <!--因为，你这里要传入的是一个number，所以这个我在propA前面加了引号-->
-            <Header/>
-            <Tags :tags-content.sync="tags"/>
-            <Calcul/>
+            <!--<Header @update:value="onTypeChange" :type="record.type"/>-->
+            <!--上面那行代码就可以简化为下面这一行代码，只要出现了value和update：value这种形式，都可以用sync来进行简化-->
+            <!--如何你想在一个组件初始化的时候给他一个初始值，在他更新的时候拿到最新的值，那么你就可以使用sync-->
+            <Header :type.sync="record.type"/>
+            <Tags :tags-content.sync="tags" @update:value="onUpdateTag" />
+            <Calcul @update:value="onUpdateRemark"  :sumValue.sync="record.sum"/>
 
 
             <!--把要传入插槽的内容放在这个地方，另一端使用slot进行接收-->
@@ -21,14 +25,40 @@
     import {Component, Prop} from "vue-property-decorator";
 
 
+    //收集子组件所传递过来的数据,在这个地方做数据类型的声明
+    type Record = {
+        selectedTags: string[]
+        remark: string
+        type: string
+        sum:number
+    }
+
     @Component({
-        components:{
-            Tags,Header,Calcul
+        components: {
+            Tags, Header, Calcul
         }
     })
     export default class Money extends Vue {
         name: "Money";
-        tags:string[] = ['衣','食']
+        tags: string[] = ["衣", "食"];
+
+
+        record: Record = {
+            selectedTags: [],
+            remark: "",
+            type: "outcome",
+            sum: 0
+        };
+
+        //获取子组件选中的标签
+        onUpdateTag(value: string[]) {
+            this.record.selectedTags = value
+        }
+
+        onUpdateRemark(value: string) {
+            this.record.remark = value
+        }
+
     };
 </script>
 
