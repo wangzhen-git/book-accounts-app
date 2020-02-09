@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{record}}
+        {{recordList}}
         <!--Layout是一个插槽-->
         <Layout>
             <!--因为，你这里要传入的是一个number，所以这个我在propA前面加了引号-->
@@ -24,6 +24,22 @@
     import Calcul from "@/components/money/Calcul.vue";
     import {Component, Prop, Watch} from "vue-property-decorator";
 
+    //提示：下面我注释掉的这一段代码都是做数据库迁移的时候才会用到了，这里我不做数据库迁移，就先删除了。
+    // const version = window.localStorage.getItem("version") || "0";
+    // const recordList: Record[] = JSON.parse(window.localStorage.getItem("recordList") || "[]");
+    // 数据库升级 也叫数据库迁移
+    // if (version === "0.0.1") {
+    //     recordList.forEach(record => {
+            // record.createdAt = new Date(2020, 1, 2);
+        // });
+        //保存数据
+        // window.localStorage.setItem("recordList", JSON.stringify(recordList));
+    // }
+    //迁移并且保存完了之后把版本号重置为0.0.2
+
+    // window.localStorage.setItem("version", "0.0.1");
+
+    const recordList: Record[] = JSON.parse(window.localStorage.getItem("recordList") || "[]");
 
     //收集子组件所传递过来的数据,在这个地方做数据类型的声明
     type Record = {
@@ -31,6 +47,9 @@
         remark: string
         type: string
         sum: number
+        //注意，你除了可以写一个数据类型之外，你还，可以写一个类，在js里面，类也叫构造函数
+        //这里加问号的意思是说这个createdAt可以不存在，也就是可以为undefined
+        createdAt?: Date
     }
 
     @Component({
@@ -41,7 +60,7 @@
     export default class Money extends Vue {
         name: "Money";
         //收集数据，准备进行保存
-        recordList: Record[] = [];
+        recordList: Record[] = recordList;
         tags: string[] = ["衣", "食"];
 
 
@@ -49,7 +68,8 @@
             selectedTags: [],
             remark: "",
             type: "outcome",
-            sum: 0
+            sum: 0,
+
         };
 
         //获取子组件选中的标签
@@ -63,7 +83,9 @@
 
         saveRecord() {
             //为了避免直接操作对象出现问题，我们先对原对象进行深拷贝
-            const recordClone = JSON.parse(JSON.stringify(this.record))
+            const recordClone: Record = JSON.parse(JSON.stringify(this.record));
+            recordClone.createdAt = new Date();
+
             //保存所有的数据
             this.recordList.push(recordClone);
         }

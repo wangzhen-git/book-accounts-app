@@ -89,6 +89,7 @@
         onComplete(){
             this.$emit('update:sumValue',parseFloat(this.sum))
             this.$emit('submit',parseFloat(this.sum))
+            this.sum = '0'
         }
 
 
