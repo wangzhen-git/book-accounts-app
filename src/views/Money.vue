@@ -22,6 +22,7 @@
     import Header from "@/components/money/Header.vue";
     import Calcul from "@/components/money/Calcul.vue";
     import {Component, Prop, Watch} from "vue-property-decorator";
+    import {model} from "@/model";
 
     //提示：下面我注释掉的这一段代码都是做数据库迁移的时候才会用到了，这里我不做数据库迁移，就先删除了。
     // const version = window.localStorage.getItem("version") || "0";
@@ -38,20 +39,8 @@
 
     // window.localStorage.setItem("version", "0.0.1");
 
-    // 下面这行代码演示了当ts和js结合时，如何在ts中引入js文件
-    const {model} = require('@/model.js')
-    const recordList: Record[] = model.fetch()
+    const recordList: RecordItem[] = model.fetch()
 
-    //收集子组件所传递过来的数据,在这个地方做数据类型的声明
-    type Record = {
-        selectedTags: string[]
-        remark: string
-        type: string
-        sum: number
-        //注意，你除了可以写一个数据类型之外，你还，可以写一个类，在js里面，类也叫构造函数
-        //这里加问号的意思是说这个createdAt可以不存在，也就是可以为undefined
-        createdAt?: Date
-    }
 
     @Component({
         components: {
@@ -61,11 +50,11 @@
     export default class Money extends Vue {
         name: "Money" | undefined;
         //收集数据，准备进行保存
-        recordList: Record[] = recordList;
+        recordList: RecordItem[] = recordList;
         tags: string[] = ["衣", "食"];
 
 
-        record: Record = {
+        record: RecordItem = {
             selectedTags: [],
             remark: "",
             type: "outcome",
@@ -84,7 +73,7 @@
 
         saveRecord() {
             //为了避免直接操作对象出现问题，我们先对原对象进行深拷贝
-            const recordClone: Record = JSON.parse(JSON.stringify(this.record));
+            const recordClone: RecordItem = JSON.parse(JSON.stringify(this.record));
             recordClone.createdAt = new Date();
 
             //保存所有的数据
