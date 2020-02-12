@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{recordList}}
         <!--Layout是一个插槽-->
         <Layout>
             <!--因为，你这里要传入的是一个number，所以这个我在propA前面加了引号-->
@@ -39,7 +38,9 @@
 
     // window.localStorage.setItem("version", "0.0.1");
 
-    const recordList: Record[] = JSON.parse(window.localStorage.getItem("recordList") || "[]");
+    // 下面这行代码演示了当ts和js结合时，如何在ts中引入js文件
+    const {model} = require('@/model.js')
+    const recordList: Record[] = model.fetch()
 
     //收集子组件所传递过来的数据,在这个地方做数据类型的声明
     type Record = {
@@ -58,7 +59,7 @@
         }
     })
     export default class Money extends Vue {
-        name: "Money";
+        name: "Money" | undefined;
         //收集数据，准备进行保存
         recordList: Record[] = recordList;
         tags: string[] = ["衣", "食"];
@@ -94,7 +95,6 @@
         @Watch("recordList")
         onRecordListChange() {
             window.localStorage.setItem("recordList", JSON.stringify(this.recordList));
-            console.log(this.recordList);
         }
 
 
