@@ -1,8 +1,8 @@
 <template>
     <div class="label-list">
         <ul>
-            <li v-for="tag in tags" :key="tag">
-                <span>{{tag}}</span><span><Icon name="right"/></span>
+            <li v-for="tag in tags" :key="tag.id">
+                <span>{{tag.name}}</span><span><Icon name="right"/></span>
             </li>
         </ul>
         <div class="create-label">

@@ -5,6 +5,7 @@ import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
 import NotFound from '@/views/NotFound.vue';
+import EditLabel from "@/views/EditLabel.vue";
 
 Vue.use(VueRouter);
 
@@ -30,7 +31,12 @@ const routes = [
 
     },
     {
-        // 会匹配所有路径
+        path:'/labels/edit',
+        component:EditLabel
+
+    },
+    {
+        // 会匹配除上面已经精确匹配完剩下的所有路径
         path: '*',
         component:NotFound
     }
