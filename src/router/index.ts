@@ -31,7 +31,7 @@ const routes = [
 
     },
     {
-        path:'/labels/edit',
+        path:'/labels/edit/:id',
         component:EditLabel
 
     },

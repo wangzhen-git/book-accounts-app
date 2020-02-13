@@ -1,10 +1,10 @@
 <template>
     <div class="label-list">
-        <ul>
-            <li v-for="tag in tags" :key="tag.id">
+        <div class="labels-wrapper">
+            <router-link v-for="tag in tags" :key="tag.id" class="label" :to="`/labels/edit/${tag.id}`">
                 <span>{{tag.name}}</span><span><Icon name="right"/></span>
-            </li>
-        </ul>
+            </router-link>
+        </div>
         <div class="create-label">
             <button @click="createTag">新建标签</button>
         </div>
@@ -45,11 +45,11 @@
     .label-list {
         background-color: $color-sub-color;
 
-        ul {
+        .labels-wrapper {
             margin-top: 6px;
             padding: 0 20px;
 
-            li {
+            .label{
                 display: flex;
                 justify-content: space-between;
                 border-bottom: 1px solid $color-background-color;
