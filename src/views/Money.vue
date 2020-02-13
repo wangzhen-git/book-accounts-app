@@ -22,7 +22,8 @@
     import Header from "@/components/money/Header.vue";
     import Calcul from "@/components/money/Calcul.vue";
     import {Component, Prop, Watch} from "vue-property-decorator";
-    import {model} from "@/model";
+    import {recordListModel} from "@/models/recordListModel";
+    import {tagListModel} from "@/models/tagListModel";
 
     //提示：下面我注释掉的这一段代码都是做数据库迁移的时候才会用到了，这里我不做数据库迁移，就先删除了。
     // const version = window.localStorage.getItem("version") || "0";
@@ -39,7 +40,8 @@
 
     // window.localStorage.setItem("version", "0.0.1");
 
-    const recordList = model.fetch()
+    const recordList = recordListModel.fetch()
+    const tagList = tagListModel.fetch()
 
 
     @Component({
@@ -51,7 +53,7 @@
         name: "Money" | undefined;
         //收集数据，准备进行保存
         recordList: RecordItem[] = recordList;
-        tags: string[] = ["衣", "食"];
+        tags = tagList
 
 
         record: RecordItem = {
@@ -73,7 +75,7 @@
 
         saveRecord() {
             //为了避免直接操作对象出现问题，我们先对原对象进行深拷贝
-            const recordClone:RecordItem = model.clone(this.record)
+            const recordClone: RecordItem = recordListModel.clone(this.record)
             recordClone.createdAt = new Date();
 
             //保存所有的数据
@@ -83,7 +85,7 @@
         //把数据保存到localStorage,只要recordList有变动，我们就保存
         @Watch("recordList")
         onRecordListChange() {
-            model.save(this.recordList);
+            recordListModel.save(this.recordList);
         }
 
 

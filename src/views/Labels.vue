@@ -15,6 +15,8 @@
     import {Component, Prop, Watch} from 'vue-property-decorator'
     import Header from "@/components/labels/Header.vue";
     import LabelList from "@/components/labels/LabelList.vue";
+    import {tagListModel} from "@/models/tagListModel";
+
 
     @Component({
         components: {LabelList, Header}

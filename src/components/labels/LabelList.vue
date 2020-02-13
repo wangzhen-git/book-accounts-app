@@ -1,21 +1,12 @@
 <template>
     <div class="label-list">
         <ul>
-            <li>
-                <span>衣</span><span><Icon name="right"/></span>
-            </li>
-            <li>
-                <span>食</span><span><Icon name="right"/></span>
-            </li>
-            <li>
-                <span>住</span><span><Icon name="right"/></span>
-            </li>
-            <li>
-                <span>行</span><span><Icon name="right"/></span>
+            <li v-for="tag in tags" :key="tag">
+                <span>{{tag}}</span><span><Icon name="right"/></span>
             </li>
         </ul>
         <div class="create-label">
-            <button>新建标签</button>
+            <button @click="createTag">新建标签</button>
         </div>
 
     </div>
@@ -25,12 +16,26 @@
 <script lang="ts">
     import Vue from 'vue'
     import {Component, Prop, Watch} from 'vue-property-decorator'
+    import {tagListModel} from "@/models/tagListModel";
+
+    tagListModel.fetch()
 
     @Component({
         components: {}
     })
     export default class LabelList extends Vue {
         name: "LabelList"
+        tags = tagListModel.data;
+
+        createTag() {
+            const tagContent = window.prompt('请输入标签名称：')
+            if (tagContent) {
+                const success = tagListModel.create(tagContent)
+                if (success === 'duplicated') {
+                    window.alert('标签名重复')
+                }
+            }
+        }
     }
 </script>
 
@@ -60,6 +65,7 @@
 
         .create-label {
             margin-top: 20px;
+
             button {
                 background-color: $color-main-tonal;
                 padding: 0 10px;

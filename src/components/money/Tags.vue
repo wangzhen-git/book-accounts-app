@@ -38,7 +38,6 @@
 
         create(){
             const name = window.prompt('请输入标签名称：')
-            console.log(this.tagsContent);
             if(name === ''){
                 alert('标签名称不能为空')
             }else{
