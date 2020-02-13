@@ -2,7 +2,9 @@
 
 const localStorageKeyName = 'recordList'
 const model = {
-
+    clone(data:RecordItem[] | RecordItem) {
+        return JSON.parse(JSON.stringify(data));
+    },
     // 获取数据
     fetch() {
         // 这里需要注意的是，在取数据的时候，就要把数据类型给as掉

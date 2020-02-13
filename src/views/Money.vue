@@ -30,16 +30,16 @@
     // 数据库升级 也叫数据库迁移
     // if (version === "0.0.1") {
     //     recordList.forEach(record => {
-            // record.createdAt = new Date(2020, 1, 2);
-        // });
-        //保存数据
-        // window.localStorage.setItem("recordList", JSON.stringify(recordList));
+    // record.createdAt = new Date(2020, 1, 2);
+    // });
+    //保存数据
+    // window.localStorage.setItem("recordList", JSON.stringify(recordList));
     // }
     //迁移并且保存完了之后把版本号重置为0.0.2
 
     // window.localStorage.setItem("version", "0.0.1");
 
-    const recordList: RecordItem[] = model.fetch()
+    const recordList = model.fetch()
 
 
     @Component({
@@ -73,7 +73,7 @@
 
         saveRecord() {
             //为了避免直接操作对象出现问题，我们先对原对象进行深拷贝
-            const recordClone: RecordItem = JSON.parse(JSON.stringify(this.record));
+            const recordClone:RecordItem = model.clone(this.record)
             recordClone.createdAt = new Date();
 
             //保存所有的数据
@@ -83,7 +83,7 @@
         //把数据保存到localStorage,只要recordList有变动，我们就保存
         @Watch("recordList")
         onRecordListChange() {
-            window.localStorage.setItem("recordList", JSON.stringify(this.recordList));
+            model.save(this.recordList);
         }
 
 

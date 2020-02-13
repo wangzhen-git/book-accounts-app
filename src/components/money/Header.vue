@@ -1,5 +1,6 @@
 <template>
     <div class="header">
+        <h1>咸鱼记账</h1>
         <ul>
             <li :class="type === `income` && `selected`" @click="changeType('income')">
                 收入
@@ -37,8 +38,6 @@
             }
 
             this.$emit("update:type",type)
-
-
         }
 
     }
@@ -52,6 +51,11 @@
         font-family: $font-kai;
         background-color: $color-main-tonal;
         font-size: $font-size-title1;
+
+        h1{
+            font-size: 18px;
+            padding: 6px 0 ;
+        }
 
         ul {
             display: flex;
@@ -72,7 +76,7 @@
                     width: 100%;
                 }
 
-                padding: 6px 0;
+                /*padding: 6px 0;*/
             }
         }
     }
