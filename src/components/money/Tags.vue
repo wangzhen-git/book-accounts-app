@@ -2,7 +2,7 @@
     <div class="tags">
         <ul class="current">
             <!--这个地方设置class的方式真的很棒啊-->
-            <li v-for="tag in tagsContent" @click="toggle(tag)" :class="{selected:selectedTag.indexOf(tag)>=0}">
+            <li v-for="tag in tagsContent" @click="toggle(tag)" :class="{selected:selectedTag.indexOf(tag)>=0}" :key="tag.id">
                 {{tag}}
             </li>
         </ul>

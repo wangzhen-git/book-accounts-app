@@ -1,7 +1,7 @@
 <template>
     <label>
         <span><Icon name="remark"/>{{this.fieldName}}:</span>
-        <input :value="this.tagName" type="text" class="input" :placeholder="this.tagName" @change="changeInput" >
+        <input :value="tagName" type="text" class="input" :placeholder="tagName" @input="$emit('changeInput',$event.target.value)" >
     </label>
 </template>
 
@@ -15,11 +15,8 @@
 
     export default class FromItem extends Vue {
         @Prop({required:true}) fieldName!:  string
-        @Prop(String) tagName:  string | undefined
-
-        changeInput(){
-            console.log(this.tagName);
-        }
+        // 这里加感叹号的意思就是说，不用给我检查是否存在了，因为我们已经给了默认值了
+        @Prop({default:''}) tagName!:  string
 
 
     }

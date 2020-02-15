@@ -2,8 +2,8 @@
     <Layout>
         <div class="edit-label">
             <Header :editLabel="editLabel"/>
-            <FromItem :fieldName="fieldName" :tagName="editLabel[0].name"/>
-            <Button>删除标签</Button>
+            <FromItem :fieldName="fieldName" :tagName="editLabel.name" @changeInput="changeInput"/>
+            <Button @onclick="deleteTag">删除标签</Button>
         </div>
     </Layout>
 </template>
@@ -25,7 +25,7 @@
         components: {Button, FromItem, Header}
     })
     export default class EditLabel extends Vue {
-        editLabel: Tag[] = []
+        editLabel?: {id:string,name:string} = undefined
         fieldName = '标签名'
 
 
@@ -33,8 +33,9 @@
             const id = this.$route.params.id
             tagListModel.fetch()
             const tags = tagListModel.data
-            this.editLabel.push(tags.filter(tag => tag.id === id)[0])
-            if (this.editLabel) {
+            const editLabel = tags.filter(tag => tag.id === id)[0]
+            if (editLabel) {
+                this.editLabel = editLabel
             } else {
                 this.$router.replace('/404')
             }
@@ -42,19 +43,31 @@
         }
 
         deleteTag() {
-            const that = this
-            tagListModel.data.forEach(function (current_value, index, value) {
+            const id = this.$route.params.id
+            tagListModel.fetch()
+            const tags = tagListModel.data
+            console.log(tags.filter(tag => tag.id === id)[0]);
+            delete tags.filter(tag => tag.id === id)[0]
+            // this.editLabel = []
 
-                console.log('11');
-                console.log(tagListModel.data);
-                console.log(current_value);
-                console.log('22');
-                // if(tagListModel.data[index].id === that.editLabel[0].id){
-                //     tagListModel.data.splice(index,1)
-                //     tagListModel.save
-                // }
+            // const that = this
+            // tagListModel.data.forEach(function (current_value, index, value) {
+            //
+            //     console.log('11');
+            //     console.log(tagListModel.data);
+            //     console.log(current_value);
+            //     console.log('22');
+            // if(tagListModel.data[index].id === that.editLabel[0].id){
+            //     tagListModel.data.splice(index,1)
+            //     tagListModel.save
+            // }
+        }
 
-            })
+        changeInput(value: string) {
+            if(this.editLabel){
+                this.editLabel.id = value
+                this.editLabel.name = value
+            }
         }
     }
 </script>
