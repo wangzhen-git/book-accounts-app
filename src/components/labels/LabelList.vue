@@ -5,7 +5,7 @@
                 <span>{{tag.name}}</span><span><Icon name="right"/></span>
             </router-link>
         </div>
-        <Button @click="createTag">新建标签</Button>
+        <Button @onclick="createTag">新建标签</Button>
 
     </div>
 

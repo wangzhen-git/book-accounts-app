@@ -25,7 +25,7 @@
         components: {Button, FromItem, Header}
     })
     export default class EditLabel extends Vue {
-        editLabel?: {id:string,name:string} = undefined
+        editLabel?: { id: string, name: string } = undefined
         fieldName = '标签名'
 
 
@@ -43,30 +43,15 @@
         }
 
         deleteTag() {
-            const id = this.$route.params.id
-            tagListModel.fetch()
-            const tags = tagListModel.data
-            console.log(tags.filter(tag => tag.id === id)[0]);
-            delete tags.filter(tag => tag.id === id)[0]
-            // this.editLabel = []
-
-            // const that = this
-            // tagListModel.data.forEach(function (current_value, index, value) {
-            //
-            //     console.log('11');
-            //     console.log(tagListModel.data);
-            //     console.log(current_value);
-            //     console.log('22');
-            // if(tagListModel.data[index].id === that.editLabel[0].id){
-            //     tagListModel.data.splice(index,1)
-            //     tagListModel.save
-            // }
+            if(this.editLabel){
+                tagListModel.remove(this.editLabel.id)
+                this.$router.push('/labels')
+            }
         }
 
-        changeInput(value: string) {
-            if(this.editLabel){
-                this.editLabel.id = value
-                this.editLabel.name = value
+        changeInput(name: string) {
+            if (this.editLabel) {
+                tagListModel.edit(this.editLabel.id, name)
             }
         }
     }
