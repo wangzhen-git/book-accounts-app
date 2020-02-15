@@ -1,11 +1,11 @@
 <template>
-    <div class="edit-label">
-        <Header :editLabel="editLabel"/>
-        <Input :fieldName="fieldName" :tagName="editLabel[0].name"/>
-        <div class="button">
-            <button @click="deleteTag">删除标签</button>
+    <Layout>
+        <div class="edit-label">
+            <Header :editLabel="editLabel"/>
+            <FromItem :fieldName="fieldName" :tagName="editLabel[0].name"/>
+            <Button>删除标签</Button>
         </div>
-    </div>
+    </Layout>
 </template>
 
 <script lang="ts">
@@ -13,7 +13,8 @@
     import {Component, Prop, Watch} from 'vue-property-decorator'
     import {tagListModel} from "@/models/tagListModel";
     import Header from '@/components/edit/Header.vue'
-    import Input from "@/components/edit/Input.vue";
+    import FromItem from "@/components/common/FromItem.vue";
+    import Button from "@/components/common/Button.vue";
 
     type Tag = {
         id: string
@@ -21,12 +22,11 @@
     }
 
     @Component({
-        components: {Input, Header}
+        components: {Button, FromItem, Header}
     })
     export default class EditLabel extends Vue {
-        name: "EditLabel"
         editLabel: Tag[] = []
-        fieldName = '标签'
+        fieldName = '标签名'
 
 
         created(): void {
@@ -41,9 +41,9 @@
 
         }
 
-        deleteTag(){
+        deleteTag() {
             const that = this
-            tagListModel.data.forEach(function(current_value,index,value){
+            tagListModel.data.forEach(function (current_value, index, value) {
 
                 console.log('11');
                 console.log(tagListModel.data);
@@ -61,15 +61,4 @@
 
 <style scoped lang="scss">
     @import "~@/assets/style/helper.scss";
-    .edit-label {
-        .button {
-            button {
-                background-color: $color-main-tonal;
-                padding: 0 10px;
-                height: 24px;
-                border: none;
-                border-radius: 4px;
-            }
-        }
-    }
 </style>

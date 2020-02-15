@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="tab-bar">
-            <router-link to="/labels" class="back" @click="saveTagContent"><span @click="saveTagContent">返回</span>
+            <router-link to="/labels" class="back" @click="saveTagContent"><span @click="saveTagContent"><Icon name="left"/></span>
             </router-link>
             <h1>类别设置</h1>
         </div>
@@ -29,7 +29,7 @@
     @Component
     export default class Header extends Vue {
 
-        @Prop() editLabel: Tag[];
+        @Prop() editLabel!: Tag[];
 
         saveTagContent() {
             tagListModel.edit(this.editLabel)
@@ -49,6 +49,7 @@
 
         .tab-bar {
             position: relative;
+            padding-top: 4px;
 
             .back {
                 position: absolute;

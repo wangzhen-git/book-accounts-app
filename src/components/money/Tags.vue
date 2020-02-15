@@ -7,7 +7,7 @@
             </li>
         </ul>
         <div class="new">
-            <button @click="create">新增标签</button>
+            <Button @click="create">创建标签</Button>
         </div>
     </div>
 </template>
@@ -15,10 +15,11 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
-
-    @Component
+    import Button from "@/components/common/Button.vue";
+    @Component({
+        components: {Button}
+    })
     export default class Tags extends Vue {
-        name: "Tags";
         // readonly 防止内部组件篡改外部组件数据
         @Prop() readonly  tagsContent: string[] | undefined;
 
@@ -80,16 +81,6 @@
 
             li.selected {
                 background-color: $color-main-tonal;
-            }
-        }
-
-        .new {
-            button {
-                background-color: $color-main-tonal;
-                padding: 0 10px;
-                height: 24px;
-                border: none;
-                border-radius: 4px;
             }
         }
     }

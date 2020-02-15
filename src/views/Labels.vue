@@ -3,7 +3,6 @@
         <Layout>
             <Header/>
             <LabelList/>
-
         </Layout>
 
     </div>

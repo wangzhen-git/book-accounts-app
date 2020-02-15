@@ -5,9 +5,7 @@
                 <span>{{tag.name}}</span><span><Icon name="right"/></span>
             </router-link>
         </div>
-        <div class="create-label">
-            <button @click="createTag">新建标签</button>
-        </div>
+        <Button @click="createTag">新建标签</Button>
 
     </div>
 
@@ -17,17 +15,19 @@
     import Vue from 'vue'
     import {Component, Prop, Watch} from 'vue-property-decorator'
     import {tagListModel} from "@/models/tagListModel";
+    import Button from "@/components/common/Button.vue";
 
     tagListModel.fetch()
 
     @Component({
-        components: {}
+        components: {Button}
     })
     export default class LabelList extends Vue {
         name: "LabelList"
         tags = tagListModel.data;
 
         createTag() {
+            console.log('new tag');
             const tagContent = window.prompt('请输入标签名称：')
             if (tagContent) {
                 const success = tagListModel.create(tagContent)
@@ -60,18 +60,6 @@
                     display: inline-block;
                 }
 
-            }
-        }
-
-        .create-label {
-            margin-top: 20px;
-
-            button {
-                background-color: $color-main-tonal;
-                padding: 0 10px;
-                height: 24px;
-                border: none;
-                border-radius: 4px;
             }
         }
     }

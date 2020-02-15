@@ -1,7 +1,7 @@
 <template>
     <label>
         <span><Icon name="remark"/>{{this.fieldName}}:</span>
-        <input type="text" class="input" :placeholder="`点击填写${this.fieldName}...`" v-model="this.tagName">
+        <input :value="this.tagName" type="text" class="input" :placeholder="this.tagName" @change="changeInput" >
     </label>
 </template>
 
@@ -12,10 +12,16 @@
     @Component({
         components: {}
     })
-    export default class Input extends Vue {
-        name: "Input"
+
+    export default class FromItem extends Vue {
         @Prop({required:true}) fieldName!:  string
         @Prop(String) tagName:  string | undefined
+
+        changeInput(){
+            console.log(this.tagName);
+        }
+
+
     }
 </script>
 
@@ -24,6 +30,10 @@
 
     label {
         display: flex;
+        background-color: white;
+        margin-top: 6px;
+        margin-bottom: 6px;
+        padding: 0 10px;
 
         span {
             padding-left: 4px;
