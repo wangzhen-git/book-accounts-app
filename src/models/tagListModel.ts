@@ -1,6 +1,8 @@
 //Label页面的所有数据我都集中到这里进行操作了
 const localStorageKeyName = 'tagList'
 
+import  createId from '@/lib/idCreator'
+
 type Tag = {
     id: string
     name: string
@@ -29,7 +31,8 @@ const tagListModel: TagListModel = {
         if (tagContents.indexOf(tagContent) >= 0) {
             return 'duplicated'
         }
-        this.data.push({id: tagContent, name: tagContent})
+        const id  = createId().toString()
+        this.data.push({id, name: tagContent})
         this.save()
         return 'success';
     },

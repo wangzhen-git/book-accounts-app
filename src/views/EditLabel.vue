@@ -43,9 +43,12 @@
         }
 
         deleteTag() {
-            if(this.editLabel){
-                tagListModel.remove(this.editLabel.id)
-                this.$router.push('/labels')
+            if (this.editLabel) {
+                if (tagListModel.remove(this.editLabel.id)) {
+                    this.$router.push('/labels')
+                } else {
+                    window.alert('删除失败')
+                }
             }
         }
 
