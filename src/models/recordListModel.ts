@@ -2,17 +2,19 @@
 
 const localStorageKeyName = 'recordList'
 const recordListModel = {
+    data:[] as RecordItem[],
     clone(data:RecordItem[] | RecordItem) {
         return JSON.parse(JSON.stringify(data));
     },
     // 获取数据
     fetch() {
         // 这里需要注意的是，在取数据的时候，就要把数据类型给as掉
-        return JSON.parse(window.localStorage.getItem(localStorageKeyName) || "[]") as RecordItem[];
+        this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || "[]") as RecordItem[];
+        return this.data;
     },
     // 保存数据
-    save(data: RecordItem[]) {
-        window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
+    save() {
+        window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
     }
 
 }
