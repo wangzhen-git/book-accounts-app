@@ -74,18 +74,13 @@
         }
 
         saveRecord() {
-            //为了避免直接操作对象出现问题，我们先对原对象进行深拷贝
-            const recordClone: RecordItem = recordListModel.clone(this.record)
-            recordClone.createdAt = new Date();
-
-            //保存所有的数据
-            this.recordList.push(recordClone);
+            recordListModel.create(this.record)
         }
 
         //把数据保存到localStorage,只要recordList有变动，我们就保存
         @Watch("recordList")
         onRecordListChange() {
-            recordListModel.save(this.recordList);
+            recordListModel.save();
         }
 
 

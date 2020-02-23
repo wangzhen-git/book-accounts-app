@@ -1,10 +1,15 @@
 // 这里使用了MVC的设计思想，该文件主要是用来实现M
 
+import clone from "@/lib/clone";
+
 const localStorageKeyName = 'recordList'
 const recordListModel = {
     data:[] as RecordItem[],
-    clone(data:RecordItem[] | RecordItem) {
-        return JSON.parse(JSON.stringify(data));
+    // 封装创建的操作
+    create(record:RecordItem){
+        const cloneRecord:RecordItem = clone(record)
+        cloneRecord.createdAt = new Date()
+        this.data.push(cloneRecord)
     },
     // 获取数据
     fetch() {
