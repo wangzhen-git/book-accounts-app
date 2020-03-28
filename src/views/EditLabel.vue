@@ -3,7 +3,7 @@
         <div class="edit-label">
             <Header :editLabel="editLabel"/>
             <FromItem :fieldName="fieldName" :tagName="editLabel.name" @changeInput="changeInput"/>
-            <Button @onclick="deleteTag">删除标签</Button>
+            <Button @click="deleteTag">删除标签</Button>
         </div>
     </Layout>
 </template>
@@ -42,6 +42,7 @@
 
         }
 
+        //删除标签
         deleteTag() {
             if (this.editLabel) {
                 if (tagListModel.remove(this.editLabel.id)) {

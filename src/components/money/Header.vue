@@ -27,10 +27,10 @@
         //Number 告诉 Vue propA 是个  number,运行时类型
         //number | undefined; 编译时类型
         //注意，当你这里写 propA 可以是 undefined ，那么你任何时候都要去检查这个值是不是undefined
-        @Prop(Number) propA: number | undefined;
+        @Prop(Number) propA: Number | undefined;
 
         //在这个地方为什么要把type这个数据从父组件传到子组件呢？就是要保持数据的统一性，就是说是数据要有一个出口，方便我在后期维护的时候只改一个地方，那么全局都可以进行修改，
-        @Prop(String) type: String;
+        @Prop(String) type: String | undefined;
 
         changeType(type: string) {
             if (type !== "income" && type !== "outcome") {

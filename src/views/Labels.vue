@@ -22,7 +22,6 @@
     })
 
     export default class Labels extends Vue {
-        name:'Labels';
     }
 </script>
 

@@ -41,7 +41,6 @@
     // window.localStorage.setItem("version", "0.0.1");
 
     const recordList = recordListModel.fetch()
-    const tagList = tagListModel.fetch()
 
 
     @Component({
@@ -53,7 +52,7 @@
         name: "Money" | undefined;
         //收集数据，准备进行保存
         recordList: RecordItem[] = recordList;
-        tags = tagList
+        tags = window.tagList;
 
 
         record: RecordItem = {

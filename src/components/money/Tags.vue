@@ -38,6 +38,7 @@
         }
 
         create(){
+            // console.log('create');
             const name = window.prompt('请输入标签名称：')
             if(name === ''){
                 alert('标签名称不能为空')

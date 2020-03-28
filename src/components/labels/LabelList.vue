@@ -5,7 +5,7 @@
                 <span>{{tag.name}}</span><span><Icon name="right"/></span>
             </router-link>
         </div>
-        <Button @onclick="createTag">新建标签</Button>
+        <Button @click="createTag">新建标签</Button>
 
     </div>
 
@@ -23,11 +23,10 @@
         components: {Button}
     })
     export default class LabelList extends Vue {
-        name: "LabelList"
-        tags = tagListModel.data;
+        tags = window.tagList;
 
         createTag() {
-            console.log('new tag');
+            console.log('createTag');
             const tagContent = window.prompt('请输入标签名称：')
             if (tagContent) {
                 const success = tagListModel.create(tagContent)
