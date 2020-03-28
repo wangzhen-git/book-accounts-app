@@ -10,6 +10,7 @@ const recordListModel = {
         const cloneRecord:RecordItem = clone(record)
         cloneRecord.createdAt = new Date()
         this.data.push(cloneRecord)
+        this.save()
     },
     // 获取数据
     fetch() {

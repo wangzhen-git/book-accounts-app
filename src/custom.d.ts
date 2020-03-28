@@ -33,4 +33,8 @@ interface  Window {
     deleteTag:(id:string)=>boolean;
     updateTag:TagListModel['edit'];
     findTag:(id:string)=>Tag|undefined;
+
+
+    recordList:RecordItem[];
+    createRecord:(record:RecordItem)=>void;
 }

@@ -22,8 +22,6 @@
     import Header from "@/components/money/Header.vue";
     import Calcul from "@/components/money/Calcul.vue";
     import {Component, Prop, Watch} from "vue-property-decorator";
-    import {recordListModel} from "@/models/recordListModel";
-    import {tagListModel} from "@/models/tagListModel";
 
     //提示：下面我注释掉的这一段代码都是做数据库迁移的时候才会用到了，这里我不做数据库迁移，就先删除了。
     // const version = window.localStorage.getItem("version") || "0";
@@ -40,7 +38,6 @@
 
     // window.localStorage.setItem("version", "0.0.1");
 
-    const recordList = recordListModel.fetch()
 
 
     @Component({
@@ -51,7 +48,7 @@
     export default class Money extends Vue {
         name: "Money" | undefined;
         //收集数据，准备进行保存
-        recordList: RecordItem[] = recordList;
+        recordList =window.recordList;
         tags = window.tagList;
 
 
@@ -73,14 +70,9 @@
         }
 
         saveRecord() {
-            recordListModel.create(this.record)
+            window.createRecord(this.record)
         }
 
-        //把数据保存到localStorage,只要recordList有变动，我们就保存
-        @Watch("recordList")
-        onRecordListChange() {
-            recordListModel.save();
-        }
 
 
     };
