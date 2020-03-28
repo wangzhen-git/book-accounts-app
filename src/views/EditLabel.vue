@@ -31,9 +31,8 @@
 
         created(): void {
             const id = this.$route.params.id
-            tagListModel.fetch()
-            const tags = tagListModel.data
-            const editLabel = tags.filter(tag => tag.id === id)[0]
+            const tags = window.tagList;
+            const editLabel = window.findTag(id)
             if (editLabel) {
                 this.editLabel = editLabel
             } else {
@@ -45,7 +44,7 @@
         //删除标签
         deleteTag() {
             if (this.editLabel) {
-                if (tagListModel.remove(this.editLabel.id)) {
+                if (window.deleteTag(this.editLabel.id)) {
                     this.$router.push('/labels')
                 } else {
                     window.alert('删除失败')
@@ -55,7 +54,7 @@
 
         changeInput(name: string) {
             if (this.editLabel) {
-                tagListModel.edit(this.editLabel.id, name)
+                window.updateTag(this.editLabel.id,name)
             }
         }
     }

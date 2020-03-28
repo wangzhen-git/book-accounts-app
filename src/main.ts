@@ -15,6 +15,10 @@ Vue.component('Layout',Layout)
 //全局的组件不能太多了，这个你要学会控制
 Vue.component('Icon',Icon)
 
+window.findTag=(id:string)=>{
+  return window.tagList.filter(tag => tag.id === id)[0]
+}
+
 window.tagList = tagListModel.fetch()
 window.createTag = (tagContent:string)=>{
   if (tagContent) {
@@ -24,7 +28,12 @@ window.createTag = (tagContent:string)=>{
     }
   }
 }
-
+window.deleteTag= (id:string)=>{
+    return tagListModel.remove(id)
+}
+window.updateTag = (id:string,name:string)=>{
+  return tagListModel.edit(id,name)
+}
 
 new Vue({
   router,
