@@ -26,13 +26,9 @@
         tags = window.tagList;
 
         createTag() {
-            console.log('createTag');
             const tagContent = window.prompt('请输入标签名称：')
-            if (tagContent) {
-                const success = tagListModel.create(tagContent)
-                if (success === 'duplicated') {
-                    window.alert('标签名重复')
-                }
+            if(tagContent){
+                window.createTag(tagContent)
             }
         }
     }
