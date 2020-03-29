@@ -5,7 +5,7 @@
                 <span>{{tag.name}}</span><span><Icon name="right"/></span>
             </router-link>
         </div>
-        <Button @click="createTag">新建标签</Button>
+        <Button @click="createTagMix">新建标签</Button>
 
     </div>
 
@@ -16,6 +16,8 @@
     import {Component, Prop, Watch} from 'vue-property-decorator'
     import {tagListModel} from "@/models/tagListModel";
     import Button from "@/components/common/Button.vue";
+    import {mixins} from "vue-class-component";
+    import TagHelper from "@/mixins/tagHelper";
 
     @Component({
         components: {Button},
@@ -25,16 +27,16 @@
             }
         }
     })
-    export default class LabelList extends Vue {
+    export default class LabelList extends mixins(TagHelper){
 
 
-        createTag() {
-            const tagContent = window.prompt('请输入标签名称：')
-            if(tagContent){
-                this.$store.commit('createTag',tagContent)
-                // store.createTag(tagContent)
-            }
-        }
+        // createTag() {
+        //     const tagContent = window.prompt('请输入标签名称：')
+        //     if(tagContent){
+        //         this.$store.commit('createTag',tagContent)
+        //         // store.createTag(tagContent)
+        //     }
+        // }
     }
 </script>
 

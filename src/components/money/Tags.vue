@@ -7,7 +7,7 @@
             </li>
         </ul>
         <div class="new">
-            <Button @click="create">创建标签</Button>
+            <Button @click="createTagMix">创建标签</Button>
         </div>
     </div>
 </template>
@@ -16,6 +16,9 @@
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
     import Button from "@/components/common/Button.vue";
+    import TagHelper from "@/mixins/tagHelper.ts";
+    import {mixins} from "vue-class-component";
+
 
     @Component({
         components: {Button},
@@ -25,9 +28,10 @@
             }
         }
     })
-    export default class Tags extends Vue {
+    export default class Tags extends mixins(TagHelper){
 
         selectedTag: string[] = [];
+
         created(): void {
             this.$store.commit('fetchTags')
         }
@@ -44,15 +48,15 @@
             this.$emit('update:value',this.selectedTag)
         }
 
-        create(){
-            console.log('create');
-            const name = window.prompt('请输入标签名称：')
-            if(!name){
-                return window.alert('标签名称不能为空')
-            }else{
-                this.$store.commit('createTag',name)
-            }
-        }
+        // create(){
+        //     console.log('create');
+        //     const name = window.prompt('请输入标签名称：')
+        //     if(!name){
+        //         return window.alert('标签名称不能为空')
+        //     }else{
+        //         this.$store.commit('createTag',name)
+        //     }
+        // }
 
 
     };
