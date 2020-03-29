@@ -17,18 +17,22 @@
     import {tagListModel} from "@/models/tagListModel";
     import Button from "@/components/common/Button.vue";
 
-    tagListModel.fetch()
-
     @Component({
-        components: {Button}
+        components: {Button},
+        computed:{
+            tags(){
+                return this.$store.state.tagList
+            }
+        }
     })
     export default class LabelList extends Vue {
-        tags = window.tagList;
+
 
         createTag() {
             const tagContent = window.prompt('请输入标签名称：')
             if(tagContent){
-                window.createTag(tagContent)
+                this.$store.commit('createTag',tagContent)
+                // store.createTag(tagContent)
             }
         }
     }

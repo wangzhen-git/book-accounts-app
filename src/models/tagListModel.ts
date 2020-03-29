@@ -1,5 +1,4 @@
 //Label页面的所有数据我都集中到这里进行操作了
-const localStorageKeyName = 'tagList'
 
 import  createId from '@/lib/idCreator'
 
@@ -21,23 +20,15 @@ type TagListModel = {
 const tagListModel: TagListModel = {
     data: [],
     // 获取数据
-    fetch() {
+    fetchRecords() {
         // 这里需要注意的是，在取数据的时候，就要把数据类型给as掉
         this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || "[]");
         return this.data;
     },
     create(tagContent: string) {
-        const tagContents = this.data.map(item => item.name)
-        if (tagContents.indexOf(tagContent) >= 0) {
-            return 'duplicated'
-        }
-        const id  = createId().toString()
-        this.data.push({id, name: tagContent})
-        this.save()
-        return 'success';
     },
     // 保存数据
-    save() {
+    saveRecord() {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
     },
     edit(id, name) {
@@ -57,17 +48,6 @@ const tagListModel: TagListModel = {
         }
     },
     remove(id) {
-        // 这个删除的方法我想了好久啊，啊啊啊，原来这样子就可以解决啊，厉害了
-        let index = -1
-        for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i].id === id) {
-                index = i
-                break
-            }
-        }
-        this.data.splice(index,1);
-        this.save()
-        return true;
     }
 
 

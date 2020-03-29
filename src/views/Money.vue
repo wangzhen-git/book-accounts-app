@@ -7,7 +7,7 @@
             <!--上面那行代码就可以简化为下面这一行代码，只要出现了value和update：value这种形式，都可以用sync来进行简化-->
             <!--如何你想在一个组件初始化的时候给他一个初始值，在他更新的时候拿到最新的值，那么你就可以使用sync-->
             <Header :type.sync="record.type"/>
-            <Tags :tags-content.sync="tags" @update:value="onUpdateTag"/>
+            <Tags />
             <Calcul @update:value="onUpdateRemark" :sumValue.sync="record.sum" @submit="saveRecord"/>
 
 
@@ -43,13 +43,15 @@
     @Component({
         components: {
             Tags, Header, Calcul
+        },
+        computed:{
+            recordList(){
+                return this.$store.state.recordList;
+            },
         }
     })
     export default class Money extends Vue {
         name: "Money" | undefined;
-        //收集数据，准备进行保存
-        recordList =window.recordList;
-        tags = window.tagList;
 
 
         record: RecordItem = {
@@ -60,9 +62,8 @@
 
         };
 
-        //获取子组件选中的标签
-        onUpdateTag(value: string[]) {
-            this.record.selectedTags = value;
+        created(): void {
+            this.$store.commit('fetchRecords')
         }
 
         onUpdateRemark(value: string) {
@@ -70,8 +71,9 @@
         }
 
         saveRecord() {
-            window.createRecord(this.record)
+            this.$store.commit('createRecord',this.record)
         }
+
 
 
 

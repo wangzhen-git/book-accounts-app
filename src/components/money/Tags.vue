@@ -2,7 +2,7 @@
     <div class="tags">
         <ul class="current">
             <!--这个地方设置class的方式真的很棒啊-->
-            <li v-for="tag in tagsContent" @click="toggle(tag)" :class="{selected:selectedTag.indexOf(tag)>=0}" :key="tag.id">
+            <li v-for="tag in tagList" @click="toggle(tag)" :class="{selected:selectedTag.indexOf(tag)>=0}" :key="tag.id">
                 {{tag}}
             </li>
         </ul>
@@ -16,14 +16,21 @@
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
     import Button from "@/components/common/Button.vue";
+
     @Component({
-        components: {Button}
+        components: {Button},
+        computed:{
+            tagList(){
+                return this.$store.state.tagList
+            }
+        }
     })
     export default class Tags extends Vue {
-        // readonly 防止内部组件篡改外部组件数据
-        @Prop() readonly  tagsContent: string[] | undefined;
 
         selectedTag: string[] = [];
+        created(): void {
+            this.$store.commit('fetchTags')
+        }
 
         toggle(tag: string) {
             const index = this.selectedTag.indexOf(tag);
@@ -38,15 +45,12 @@
         }
 
         create(){
-            // console.log('create');
+            console.log('create');
             const name = window.prompt('请输入标签名称：')
-            if(name === ''){
-                alert('标签名称不能为空')
+            if(!name){
+                return window.alert('标签名称不能为空')
             }else{
-                if(this.tagsContent){
-                    //触发一个事件来改tagsContent数组
-                    this.$emit('update:tagsContent',[...this.tagsContent,name])
-                }
+                this.$store.commit('createTag',name)
             }
         }
 

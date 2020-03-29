@@ -35,10 +35,12 @@
 
     export default class Calcul extends Vue {
 
-        @Prop(Number) sumValue:number | undefined;
+        @Prop() readonly  sumValue! :number ;
 
         remarkText = "";
-        sum = this.sumValue && this.sumValue.toString()
+
+        sum = this.sumValue.toString()
+
         //这是教你如何在TS中使用watch把这里的remark数据传递到父组件
         @Watch("remarkText")
         onRemarkChange(value:string) {

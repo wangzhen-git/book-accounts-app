@@ -32,7 +32,9 @@
         @Prop() editLabel!: Tag[];
 
         saveTagContent() {
-            tagListModel.edit(this.editLabel)
+            if(this.editLabel){
+                store.updateTag([...this.editLabel])
+            }
         }
 
     }

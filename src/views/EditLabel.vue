@@ -31,20 +31,19 @@
 
         created(): void {
             const id = this.$route.params.id
-            const tags = window.tagList;
-            const editLabel = window.findTag(id)
+            const tags =this.$store.state.tagList;
+            const editLabel = this.$store.commit('findTag',id)
             if (editLabel) {
                 this.editLabel = editLabel
             } else {
                 this.$router.replace('/404')
             }
-
         }
 
         //删除标签
         deleteTag() {
             if (this.editLabel) {
-                if (window.deleteTag(this.editLabel.id)) {
+                if (this.$store.commit('deleteTag',this.editLabel.id)) {
                     this.$router.push('/labels')
                 } else {
                     window.alert('删除失败')
@@ -54,7 +53,7 @@
 
         changeInput(name: string) {
             if (this.editLabel) {
-                window.updateTag(this.editLabel.id,name)
+                store.updateTag(this.editLabel.id,name)
             }
         }
     }
